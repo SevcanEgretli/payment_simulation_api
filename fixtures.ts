@@ -4,7 +4,6 @@ import { validCardPayload } from './utils/testData';
 import type { PaymentMethod } from './utils/types';
 
 type Fixtures = {
-  /** A card payment method that has already settled into status "active". */
   activeCardPaymentMethod: PaymentMethod;
 };
 

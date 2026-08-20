@@ -30,7 +30,6 @@ test.describe('Create payment', () => {
     expectProcessingResource(body, 'pay_');
   });
 
-  // A declined card/IBAN only fails once the payment settles
   test('accepts a payment against a declined card and returns a processing resource', async ({ request }) => {
     const declinedCardPaymentMethod = await createSettledPaymentMethod(
       request,

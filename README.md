@@ -5,13 +5,12 @@ Automated test suite written with Playwright + TypeScript for the [Distribusion 
 ## Project Structure
 
 ```
-api_payment/
+payment_simulation_api/
 ├── .github/workflows/api-tests.yml   # CI workflow (push/manual/daily)
 ├── config/
 │   └── env.ts                        # reads base URL + API key from .env
 ├── fixtures.ts                       # shared Playwright fixtures (e.g. a ready, active payment method)
 ├── utils/
-│   ├── apiClient.ts                  # generic get/post/put/patch/delete helpers
 │   ├── apiHelpers.ts                 # "create + wait until settled" arrange helpers, plus expectProcessingResource
 │   ├── pollUntil.ts                  # processing -> final status polling helper
 │   ├── testData.ts                   # valid/invalid card & IBAN payload builders, Luhn number generator, brand test cases

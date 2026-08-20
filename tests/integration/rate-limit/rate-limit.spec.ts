@@ -24,7 +24,6 @@ test('returns 429 with a Retry-After header once the per-minute limit is exceede
     const batchSize = Math.min(BATCH_CONCURRENCY, totalRequests - sent);
     const batch = await Promise.all(
       Array.from({ length: batchSize }, () =>
-        // Cheap endpoint - counts toward the limit without creating real resources.
         fetch(`${baseURL}/payment-methods/pm_definitely_missing`, {
           headers: { 'X-Api-Key': apiKey },
         })
