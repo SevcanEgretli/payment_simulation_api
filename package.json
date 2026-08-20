@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Automated API test suite for the Distribusion Payment Simulation API, using Playwright + TypeScript",
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "test": "npx playwright test",
     "test:headed-debug": "npx playwright test --debug",
     "test:report": "npx playwright show-report",

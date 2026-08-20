@@ -33,6 +33,7 @@ payment_simulation_api/
 │       │   └── list-payments.spec.ts              # GET ONLY (list): ordering, empty list, 404
 │       ├── contract/
 │       │   ├── consistency.spec.ts                # exception: deliberately compares POST + GET, see "Bugs Found" below
+│       │   ├── idempotency.spec.ts                 # exception: fires the same payment payload twice, see "Design Observations" below
 │       │   └── unexpected-fields.spec.ts           # exception: do undocumented/extra fields ever affect server output?
 │       └── rate-limit/rate-limit.spec.ts          # opt-in only, see "Rate limiting" below
 ├── playwright.config.ts
@@ -88,9 +89,9 @@ While building the suite I found **2 real, reproducible bugs** where the API's b
 
 ## Design Observations (not bugs, presentation notes)
 
-These don't contradict the documentation - the API never promises otherwise - but they'd matter in a real payment system, so they're noted here instead of encoded as failing tests:
+These don't contradict the documentation - the API never promises otherwise - but they'd matter in a real payment system, so they're noted here instead of just prose:
 
-- **No idempotency**: sending the exact same payload to `/payments` twice creates two separate payments with two separate ids (verified live); no `Idempotency-Key`-style header is supported or documented. For `/payment-methods` this just means clutter in a saved-card list, but for `/payments` the real risk is a network timeout causing a client retry that results in the customer being charged **twice**. This is exactly what idempotency keys in production payment APIs (Stripe, Adyen, etc.) exist to prevent.
+- **No idempotency**: sending the exact same payload to `/payments` twice creates two separate payments with two separate ids; no `Idempotency-Key`-style header is supported or documented. For `/payment-methods` this just means clutter in a saved-card list, but for `/payments` the real risk is a network timeout causing a client retry that results in the customer being charged **twice**. This is exactly what idempotency keys in production payment APIs (Stripe, Adyen, etc.) exist to prevent. Tracked as a living regression test, the same way the two bugs above are: `tests/integration/contract/idempotency.spec.ts` fires the same payload twice and asserts a single resulting payment - `test.fail()` keeps the suite green today, and flips to failing (in a good way) the moment idempotency support is added, which is the cue to update this note.
 
 ## Adding New Tests
 
