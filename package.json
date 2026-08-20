@@ -1,0 +1,23 @@
+{
+  "name": "payment_simulation_api",
+  "version": "1.0.0",
+  "description": "Automated API test suite for the Distribusion Payment Simulation API, using Playwright + TypeScript",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed-debug": "npx playwright test --debug",
+    "test:report": "npx playwright show-report",
+    "test:rate-limit": "cross-env RUN_RATE_LIMIT_TEST=1 npx playwright test tests/integration/rate-limit/rate-limit.spec.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.6.3"
+  }
+}
