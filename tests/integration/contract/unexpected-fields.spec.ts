@@ -4,9 +4,7 @@ import { pollUntilSettled } from '@utils/pollUntil';
 import { validCardPayload, DECLINE_CARD_NUMBER, VALID_IBAN } from '@utils/testData';
 import type { PaymentMethod, Payment } from '@utils/types';
 
-// The API accepts unknown request fields instead of rejecting them. That's
-// fine, as long as they can't change what the server actually does - which
-// is what these tests check, comparing POST and GET like consistency.spec.ts.
+// The API accepts unknown request fields instead of rejecting them.
 test.describe('Contract: unexpected request fields', () => {
   test('ignores an unrecognized top-level property and does not let it leak into the resource', async ({ request }) => {
     const payload = validCardPayload();
