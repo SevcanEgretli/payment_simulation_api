@@ -13,8 +13,8 @@ payment_simulation_api/
 ├── utils/
 │   ├── apiHelpers.ts                 # "create + wait until settled" arrange helpers, plus expectProcessingResource
 │   ├── pollUntil.ts                  # processing -> final status polling helper
-│   ├── testData.ts                   # valid/invalid card & IBAN payload builders, Luhn number generator, brand test cases
-│   └── types.ts                      # TS types for the API's schemas and shared test-case shapes
+│   ├── testData.ts                   # card/IBAN payload builders, Luhn number generator, brand test numbers
+│   └── types.ts                      # shared TS types: API response schemas + validation-case shape
 ├── tests/
 │   ├── e2e/                                   # a few tests, each covering one full business flow end-to-end
 │   │   ├── card-payment-flow.spec.ts
@@ -54,7 +54,7 @@ npx playwright test
 npm run test:report    # open the latest HTML report
 ```
 
-The API key is never hardcoded; `config/env.ts` reads it from `.env` and throws a clear error if it's missing. The Playwright config attaches it as the `X-Api-Key` header on every request automatically.
+`.env.example` is the committed template listing the required variables (`API_BASE_URL`, `API_KEY`); `.env` is your local copy with real values and is git-ignored (see `.gitignore`), so it never gets committed or shared. The API key is never hardcoded; `config/env.ts` reads both variables from `.env` and throws a clear error naming the missing one - and pointing back at `.env.example` - if either is absent. The Playwright config attaches the key as the `X-Api-Key` header on every request automatically.
 
 ## Test Strategy
 

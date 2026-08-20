@@ -40,6 +40,3 @@ test.describe('Common error handling', () => {
   });
 });
 
-// Deliberately out of scope here (see README):
-// - 413 payload_too_large: a large-enough payload adds little test value.
-// - 429 rate_limited: covered separately, see tests/rate-limit/rate-limit.spec.ts.
